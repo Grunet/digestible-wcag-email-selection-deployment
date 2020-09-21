@@ -1,0 +1,15 @@
+{
+  "name": "digestible-wcag-email-selection-deployment",
+  "version": "0.0.1",
+  "description": "Contains the things needed to deploy the corresponding repository's changes via a cloud provider",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grunet/digestible-wcag-email-selection-deployment.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Grunet/digestible-wcag-email-selection-deployment/issues"
+  },
+  "homepage": "https://github.com/Grunet/digestible-wcag-email-selection-deployment#readme"
+}

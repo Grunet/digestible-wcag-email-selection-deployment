@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./packages/api/Dockerfile
+    ports:
+      - "4000:4000"
+    secrets:
+      - dwcag_apikeys_s3_bucket_selection
+      - dwcag_apikeys_s3_bucket_selection_key_current
+      - dwcag_apikeys_s3_bucket_selection_key_recent
+
+secrets:
+  dwcag_apikeys_s3_bucket_selection:
+    file: ./secrets/bucketName.txt
+  dwcag_apikeys_s3_bucket_selection_key_current:
+    file: ./secrets/currentSelectionFilename.txt
+  dwcag_apikeys_s3_bucket_selection_key_recent:
+    file: ./secrets/recentSelectionsFilename.txt

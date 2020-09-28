@@ -11,5 +11,17 @@
   "bugs": {
     "url": "https://github.com/Grunet/digestible-wcag-email-selection-deployment/issues"
   },
-  "homepage": "https://github.com/Grunet/digestible-wcag-email-selection-deployment#readme"
+  "homepage": "https://github.com/Grunet/digestible-wcag-email-selection-deployment#readme",
+  "dependencies": {
+    "dataloader": "^2.0.0",
+    "digestible-wcag-email-selection": "github:Grunet/digestible-wcag-email-selection#master",
+    "docker-secrets-nodejs": "^1.0.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^15.3.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "find-config": "^1.0.0"
+  }
 }

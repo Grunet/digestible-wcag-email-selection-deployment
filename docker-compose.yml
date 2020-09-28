@@ -11,10 +11,10 @@ services:
       - dwcag_apikeys_s3_bucket_selection
       - dwcag_apikeys_s3_bucket_selection_key_current
 
-  internals:
+  selection_changer:
     build:
       context: .
-      dockerfile: ./packages/internals/Dockerfile
+      dockerfile: ./packages/selection_changer/Dockerfile
     secrets:
       - dwcag_apikeys_s3_bucket_selection
       - dwcag_apikeys_s3_bucket_selection_key_current

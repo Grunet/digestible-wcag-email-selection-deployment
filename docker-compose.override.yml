@@ -45,7 +45,7 @@ services:
       AWS_DEFAULT_REGION: "us-east-2" # ADJUSTED - updated to match the region the resources are in
       AWS_CONTAINER_CREDENTIALS_RELATIVE_URI: "/creds"
 
-  internals:
+  selection_changer:
     depends_on:
       - ecs-local-endpoints
     networks:

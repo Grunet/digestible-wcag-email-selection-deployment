@@ -19,17 +19,21 @@ async function __getData() {
   });
 }
 
-const DataLoader = require("dataloader");
-const loader = new DataLoader(async (keys) => {
-  const data = await __getData();
+function createCurrentSelectionAdapter() {
+  const DataLoader = require("dataloader");
+  const loader = new DataLoader(async (keys) => {
+    const data = await __getData();
 
-  return keys.map((key) => data);
-});
+    return keys.map((key) => data);
+  });
 
-async function getDataWithBatchedRequests() {
-  return loader.load("arbitrary");
+  return {
+    getDataFromCurrentSelection: async function () {
+      return loader.load("arbitrary");
+    },
+  };
 }
 
 module.exports = {
-  getCurrentSelectionData: getDataWithBatchedRequests,
+  createCurrentSelectionAdapter: createCurrentSelectionAdapter,
 };

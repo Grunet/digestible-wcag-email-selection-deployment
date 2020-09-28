@@ -10,6 +10,14 @@ services:
     secrets:
       - dwcag_apikeys_s3_bucket_selection
       - dwcag_apikeys_s3_bucket_selection_key_current
+
+  internals:
+    build:
+      context: .
+      dockerfile: ./packages/internals/Dockerfile
+    secrets:
+      - dwcag_apikeys_s3_bucket_selection
+      - dwcag_apikeys_s3_bucket_selection_key_current
       - dwcag_apikeys_s3_bucket_selection_key_recent
 
 secrets:

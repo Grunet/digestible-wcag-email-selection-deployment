@@ -20,8 +20,8 @@ services:
       # Mount /var/run so we can access docker.sock and talk to Docker
       - /var/run:/var/run
       # Mount the shared configuration directory, used by the AWS CLI and AWS SDKs
-      # On Unix, this directory can be found at "$HOME/.aws"
-      - ${UserProfile}/.aws/:/home/.aws/ # ADJUSTED - switched to Windows
+      # On Windows, this directory can be found at "${UserProfile}/.aws"
+      - $HOME/.aws/:/home/.aws/
     environment:
       # define the home folder; credentials will be read from $HOME/.aws
       HOME: "/home"

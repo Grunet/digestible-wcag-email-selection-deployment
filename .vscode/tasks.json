@@ -20,6 +20,12 @@
       "group": "test",
       "type": "shell",
       "command": "node ./test/integration/manual/index_test.js"
+    },
+    {
+      "label": "Manual - Run all containers once",
+      "group": "test",
+      "type": "shell",
+      "command": "bash ./test/e2e/manual/changeOnce.sh"
     }
   ]
 }

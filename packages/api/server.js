@@ -48,7 +48,7 @@ app.use("/graphql", (req, res) => {
     graphiql: true,
     context: {
       getDataFromCurrentSelection: createCurrentSelectionAdapter()
-        .getDataFromCurrentSelection,
+        .getDataFromCurrentSelection, //Needs to be re-created on each request or else the caching will persist between requests
     },
   })(req, res);
 });

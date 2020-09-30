@@ -26,6 +26,12 @@
       "group": "test",
       "type": "shell",
       "command": "bash ./test/e2e/manual/changeOnce.sh"
+    },
+    {
+      "label": "Automated - Run integration tests",
+      "group": "test",
+      "type": "shell",
+      "command": "npm run test-integration"
     }
   ]
 }

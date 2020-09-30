@@ -52,5 +52,11 @@ app.use("/graphql", (req, res) => {
     },
   })(req, res);
 });
-app.listen(4000);
-console.log("Running a GraphQL API server at http://localhost:4000/graphql");
+
+const server = app.listen(4000, () => {
+  console.log("Running a GraphQL API server at http://localhost:4000/graphql");
+});
+
+module.exports = {
+  server: server,
+};

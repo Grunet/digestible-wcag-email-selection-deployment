@@ -2,6 +2,9 @@
   "name": "digestible-wcag-email-selection-deployment",
   "version": "0.0.1",
   "description": "Contains the things needed to deploy the corresponding repository's changes via a cloud provider",
+  "scripts": {
+    "test-integration": "jest --coverage --testMatch **\\test\\integration\\automated\\*_test.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Grunet/digestible-wcag-email-selection-deployment.git"
@@ -22,6 +25,8 @@
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
-    "find-config": "^1.0.0"
+    "find-config": "^1.0.0",
+    "jest": "^26.4.2",
+    "supertest": "^5.0.0"
   }
 }

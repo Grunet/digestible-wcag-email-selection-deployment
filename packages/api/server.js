@@ -41,6 +41,7 @@ const root = {
 };
 
 const app = express();
+
 app.use("/graphql", (req, res) => {
   graphqlHTTP({
     schema: schema,
@@ -52,6 +53,8 @@ app.use("/graphql", (req, res) => {
     },
   })(req, res);
 });
+
+app.use("/health", require("express-healthcheck")());
 
 const server = app.listen(4000, () => {
   console.log("Running a GraphQL API server at http://localhost:4000/graphql");

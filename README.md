@@ -19,6 +19,7 @@ Contains the things needed to deploy the corresponding repository's changes via 
   - The AWS repository name doesn't need to be the same as the github repo name, but there doesn't seem to be a reason NOT to have them be the same
 
 - Following the guidance [here](https://aws.amazon.com/blogs/architecture/field-notes-integrating-http-apis-with-aws-cloud-map-and-amazon-ecs-services/) allows for the web server to be deployed in AWS API Gateway, with the following changes
+
   - A custom VPC + subnets don't seem to be needed (using the ECS default public ones available when creating the service seem to work)
   - Making sure all the port settings line up is subtle
     - In the task definition, if the networking mode is "awsvpc" you can only specify one port, which serves as both the container's port and the host's port (e.g. 4000:4000), i.e. the host can't listen on 80
@@ -26,3 +27,16 @@ Contains the things needed to deploy the corresponding repository's changes via 
     - There are are also ports that can be set in the Security Group used by the service, but leaving them as is (with the default HTTP one being set to 80) doesn't seem to harm any of the traffic from the API
     - Running the troubleshooting commands mentioned [here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-service-discovery.html#create-service-discovery-verify) was helpful in identifying the port issues
   - "Auto-Assign Public IP" needs to be set to Yes, otherwise the task instance has trouble pulling the container image from ECR (as also mentioned [in this troubleshooting page](https://aws.amazon.com/premiumsupport/knowledge-center/ecs-pull-container-api-error-ecr/))
+
+- Following the guidance [here](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html) with the appropriate ECS-specific replacements mentioned [here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalabletarget.html), it's possible to only have the server running around the time of day when it's needed (i.e. when the emails are being sent)
+  - The following AWS CLI commands can setup and cancel this scheduling (on Windows), with these replacements:
+    - "default" should be replaced by the ECS cluster's name
+    - "dwcag-api" should be replaced by the ECS service's name
+    - "17 2" (i.e. 2:17) should be replaced by the minutes and hour (in UTC) that the server should be started at each day
+    - "22 2" (i.e. 2:22) should be replaced by the minutes and hour (in UTC) that the server should be stopped at each day
+  - Commands to setup the schedule
+    - `aws application-autoscaling put-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name start-up-server --schedule "cron(17 2 * * ? *)" --scalable-target-action MinCapacity=1,MaxCapacity=1`
+    - `aws application-autoscaling put-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name tear-down-server --schedule "cron(22 2 * * ? *)" --scalable-target-action MinCapacity=0,MaxCapacity=0`
+  - Commands to cancel the schedule
+    - `aws application-autoscaling delete-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name start-up-server`
+    - `aws application-autoscaling delete-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name tear-down-server`

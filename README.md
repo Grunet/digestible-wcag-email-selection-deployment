@@ -29,6 +29,7 @@ Contains the things needed to deploy the corresponding repository's changes via 
   - "Auto-Assign Public IP" needs to be set to Yes, otherwise the task instance has trouble pulling the container image from ECR (as also mentioned [in this troubleshooting page](https://aws.amazon.com/premiumsupport/knowledge-center/ecs-pull-container-api-error-ecr/))
 
 - Following the guidance [here](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html) with the appropriate ECS-specific replacements mentioned [here](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalabletarget.html), it's possible to only have the server running around the time of day when it's needed (i.e. when the emails are being sent)
+
   - The following AWS CLI commands can setup and cancel this scheduling (on Windows), with these replacements:
     - "default" should be replaced by the ECS cluster's name
     - "dwcag-api" should be replaced by the ECS service's name
@@ -40,3 +41,5 @@ Contains the things needed to deploy the corresponding repository's changes via 
   - Commands to cancel the schedule
     - `aws application-autoscaling delete-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name start-up-server`
     - `aws application-autoscaling delete-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name tear-down-server`
+
+- Following the guidance [here](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/scheduled_tasks.html) the change selection task can be setup to run at a specific time each day

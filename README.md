@@ -35,6 +35,8 @@ Contains the things needed to deploy the corresponding repository's changes via 
     - "dwcag-api" should be replaced by the ECS service's name
     - "17 2" (i.e. 2:17) should be replaced by the minutes and hour (in UTC) that the server should be started at each day
     - "22 2" (i.e. 2:22) should be replaced by the minutes and hour (in UTC) that the server should be stopped at each day
+  - Command to register the service with the scheduler (only needed once before anything else can be done)
+    - `aws application-autoscaling register-scalable-target --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --min-capacity 0 --max-capacity 1`
   - Commands to setup the schedule
     - `aws application-autoscaling put-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name start-up-server --schedule "cron(17 2 * * ? *)" --scalable-target-action MinCapacity=1,MaxCapacity=1`
     - `aws application-autoscaling put-scheduled-action --service-namespace ecs --scalable-dimension ecs:service:DesiredCount --resource-id service/default/dwcag-api --scheduled-action-name tear-down-server --schedule "cron(22 2 * * ? *)" --scalable-target-action MinCapacity=0,MaxCapacity=0`

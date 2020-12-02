@@ -20,7 +20,7 @@
     "digestible-wcag-email-selection": "github:Grunet/digestible-wcag-email-selection#master",
     "docker-secrets-nodejs": "^1.0.5",
     "express": "^4.17.1",
-    "express-graphql": "^0.11.0",
+    "express-graphql": "^0.12.0",
     "express-healthcheck": "^0.1.0",
     "graphql": "^15.3.0"
   },

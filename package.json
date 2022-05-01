@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/Grunet/digestible-wcag-email-selection-deployment#readme",
   "dependencies": {
-    "dataloader": "^2.0.0",
+    "dataloader": "^2.1.0",
     "digestible-wcag-email-selection": "github:Grunet/digestible-wcag-email-selection#master",
     "docker-secrets-nodejs": "^1.0.5",
     "express": "^4.17.1",
